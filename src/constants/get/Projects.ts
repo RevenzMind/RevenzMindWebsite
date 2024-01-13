@@ -19,7 +19,7 @@ export const GetProjects = [
 ];
 
 
-export interface ProjectType{
+export interface ProjectType {
     emoji: string;
     name: string;
     description: string;
