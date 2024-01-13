@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SocialCard from "../components/Reusables/SocialCard.astro";
+import {SocialLinks} from "../constants/get/Social";
+---
+
+<Layout title="RevenzMind ! Social">
+    <section>
+        <div class="section_content">
+
+            {
+                SocialLinks.map((social) => (
+                        <SocialCard alt={social.title} svg={social.svg} url={social.url} title={social.title}>
+
+                        </SocialCard>
+                ))
+            }
+
+
+        </div>
+
+    </section>
+
+
+</Layout>
+
+<style is:global>
+    #social {
+        background: var(--background-component-selected);
+        border: 1px solid var(--border-color);
+    }
+
+    [data-tooltip]:hover:before {
+        transform: translate(-40%, 100%);
+    }
+
+    .section_content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+
+        gap: 20px;
+    }
+</style>

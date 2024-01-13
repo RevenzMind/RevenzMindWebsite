@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/Reusables/ProjectCard.astro";
+import {GetProjects} from "../constants/get/Projects";
+import type {ProjectType} from "../constants/get/Projects";
+---
+
+<Layout title="RevenzMind ! Projects">
+    <section>
+        <div class="section_content">
+            {
+                GetProjects?.map((project: ProjectType) => (
+                        <ProjectCard
+                                emoji={project.emoji}
+                                title={project.name}
+                                description={project.description}
+                                hasdeployed={project.hasdeployed}
+                                github={project.codeLink}
+                                url={project.deployedLink}
+                        />
+                ))
+            }
+        </div>
+    </section>
+</Layout>
+
+<style is:global>
+    #proyects {
+        background: var(--background-component-selected);
+        border: 1px solid var(--border-color);
+    }
+
+    [data-tooltip]:hover:before {
+        transform: translate(-40%, 100%);
+    }
+</style>
+
+<!--Section Skill-->
+<style>
+
+
+    .section_header h1 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--accent-color);
+    }
+
+    .section_content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+
+        gap: 20px;
+    }
+</style>

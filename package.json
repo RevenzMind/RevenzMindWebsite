@@ -12,6 +12,9 @@
   "dependencies": {
     "@astrojs/check": "^0.3.4",
     "astro": "^4.1.1",
-    "typescript": "^5.3.3"
+    "spotify-web-api-node": "^5.0.2",
+    "svgls": "^0.0.10",
+    "typescript": "^5.3.3",
+    "use-sound": "^4.0.1"
   }
 }

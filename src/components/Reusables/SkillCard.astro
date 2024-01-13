@@ -1,0 +1,87 @@
+---
+export interface SkillTypes {
+    name: string;
+    imageurl: string;
+}
+
+interface Props {
+    title: string;
+    data: SkillTypes[];
+}
+
+const {title, data} = Astro.props;
+---
+
+<div class="skills_card">
+    <div class="skills_header">
+        <h1>{title}</h1>
+    </div>
+    <div class="skills_container">
+        {
+            data.map((skill) => (
+                    <div class="skills_item" data-tooltip={skill.name}>
+                        <img
+                                src={skill.imageurl}
+                                data-tooltip={skill.name}
+                                alt={skill.name}
+                        />
+                    </div>
+            ))
+        }
+    </div>
+</div>
+
+<style>
+    .skills_card {
+        padding: 20px 30px;
+        width: 80%;
+        background-color: var(--background-component);
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 10px;
+    }
+
+    .skills_card .skills_header {
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .skills_card .skills_header h1 {
+        font-size: 1rem;
+        font-weight: 500;
+        color: white;
+    }
+
+    .skills_card .skills_container {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .skills_card .skills_container .skills_item {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        background-color: var(--background-component-selected);
+        border: 1px solid var(--border-color);
+
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .skills_card .skills_container .skills_item img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
