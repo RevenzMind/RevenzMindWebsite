@@ -1,7 +1,9 @@
 ---
+import {doSwap} from "astro/dist/transitions/events";
 interface Props {
     title: string;
 }
+import {ViewTransitions} from 'astro:transitions';
 
 const {title} = Astro.props;
 import Header from "../components/Header.astro";
@@ -16,24 +18,29 @@ import Footer from "../components/Footer.astro";
     <meta name="viewport" content="width=device-width"/>
     <link rel="icon" type="image/svg+xml" href="/Assets/favicon.svg"/>
     <meta name="generator" content={Astro.generator}/>
-    <meta property="og:title" content="RevenzMind" />
-    <meta property="og:type" content="😺💖 wanna see my website?" />
-    <meta property="og:url" content="https://revenzmind.vercel.app/" />
-    <meta property="og:image" content="https://japi.rest/discord/v1/user/1149804799877972059/avatar" />
-    <meta property="og:description" content="Site description" />
+    <meta property="og:title" content="RevenzMind"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://revenzmind.vercel.app/"/>
+    <meta property="og:image" content="https://japi.rest/discord/v1/user/1149804799877972059/avatar"/>
+    <meta property="og:description" content="😺💖 wanna see my website?n"/>
     <meta name="theme-color" content="#000000">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <title>{title}</title>
+    <ViewTransitions/>
+
 </head>
 <body>
 <Header/>
+
 <main>
     <slot/>
 </main>
 <Footer/>
+
 </body>
+
 </html>
 
 <style is:global>
@@ -103,7 +110,6 @@ import Footer from "../components/Footer.astro";
     }
 </style>
 
-<!--Styles Tooltip -->
 
 <style is:global>
     [data-tooltip]:before {
@@ -136,7 +142,6 @@ import Footer from "../components/Footer.astro";
     }
 </style>
 
-<!--Cursor-->
 
 <style is:global>
     .cursor {
@@ -169,69 +174,71 @@ import Footer from "../components/Footer.astro";
     }
 </style>
 
-<!--Cursor detect desktop-->
 <script>
-    function isDesktop() {
-        const userAgent = navigator.userAgent.toLowerCase();
-        const desktopKeywords = ["windows", "macintosh", "x11"];
+    document.addEventListener('astro:page-load', () => {
+        function isDesktop() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const desktopKeywords = ["windows", "macintosh", "x11"];
 
-        for (let keyword of desktopKeywords) {
-            if (userAgent.indexOf(keyword) !== -1) {
-                return true;
+            for (let keyword of desktopKeywords) {
+                if (userAgent.indexOf(keyword) !== -1) {
+                    return true;
+                }
             }
+
+            return false;
         }
 
-        return false;
-    }
+        if (isDesktop()) {
+            const cursor = document.createElement("div");
+            const pointer = document.createElement("div");
 
-    if (isDesktop()) {
-        const cursor = document.createElement("div");
-        const pointer = document.createElement("div");
+            cursor.classList.add("cursor");
+            pointer.classList.add("cursor_pointer");
 
-        cursor.classList.add("cursor");
-        pointer.classList.add("cursor_pointer");
+            document.body.appendChild(cursor);
+            document.body.appendChild(pointer);
 
-        document.body.appendChild(cursor);
-        document.body.appendChild(pointer);
+            let mouseX = 0;
+            let mouseY = 0;
 
-        let mouseX = 0;
-        let mouseY = 0;
+            if (cursor && pointer) {
+                const updateCursor = () => {
+                    const dx = mouseX - parseInt(cursor.style.left || "0");
+                    const dy = mouseY - parseInt(cursor.style.top || "0");
 
-        if (cursor && pointer) {
-            const updateCursor = () => {
-                const dx = mouseX - parseInt(cursor.style.left || "0");
-                const dy = mouseY - parseInt(cursor.style.top || "0");
+                    const speed = 1;
 
-                const speed = 1; // Puedes ajustar la velocidad de seguimiento
+                    cursor.style.left = `${
+                        parseInt(cursor.style.left || "0") + dx * speed
+                    }px`;
+                    cursor.style.top = `${
+                        parseInt(cursor.style.top || "0") + dy * speed
+                    }px`;
+                    pointer.style.left = `${mouseX}px`;
+                    pointer.style.top = `${mouseY}px`;
 
-                cursor.style.left = `${
-                    parseInt(cursor.style.left || "0") + dx * speed
-                }px`;
-                cursor.style.top = `${
-                    parseInt(cursor.style.top || "0") + dy * speed
-                }px`;
-                pointer.style.left = `${mouseX}px`;
-                pointer.style.top = `${mouseY}px`;
+                    requestAnimationFrame(updateCursor);
+                };
+
+                document.addEventListener("mousemove", (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    const hoveredElement = document.elementFromPoint(mouseX, mouseY);
+
+                    if (
+                        hoveredElement &&
+                        window.getComputedStyle(hoveredElement).cursor === "pointer"
+                    ) {
+                        cursor.classList.add("hover");
+                    } else {
+                        cursor.classList.remove("hover");
+                    }
+                });
 
                 requestAnimationFrame(updateCursor);
-            };
-
-            document.addEventListener("mousemove", (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                const hoveredElement = document.elementFromPoint(mouseX, mouseY);
-
-                if (
-                    hoveredElement &&
-                    window.getComputedStyle(hoveredElement).cursor === "pointer"
-                ) {
-                    cursor.classList.add("hover");
-                } else {
-                    cursor.classList.remove("hover");
-                }
-            });
-
-            requestAnimationFrame(updateCursor);
+            }
         }
-    }
+    });
+
 </script>
