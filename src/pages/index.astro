@@ -16,6 +16,7 @@ import Layout from "../layouts/Layout.astro";
                     <img
                             src="https://japi.rest/discord/v1/user/1149804799877972059/avatar"
                             alt="avatar"
+                            onerror="this.src='https://avatars.githubusercontent.com/u/155520951?v=4'"
                     />
                 </div>
                 <div class="landing_about_text">
@@ -71,7 +72,6 @@ import Layout from "../layouts/Layout.astro";
     </section>
 </Layout>
 
-<!--Menu Selector-->
 <style is:global>
     #home {
         border: 1px solid var(--border-color);
@@ -83,7 +83,6 @@ import Layout from "../layouts/Layout.astro";
     }
 </style>
 
-<!--Landing-->
 <style>
     .landing {
         height: 85vh;
@@ -132,6 +131,8 @@ import Layout from "../layouts/Layout.astro";
     .landing_about_avatar {
         border-radius: 10px;
         height: 150px;
+        width: 150px;
+
         display: flex;
         justify-content: center;
         overflow: hidden;
