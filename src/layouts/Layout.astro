@@ -145,7 +145,6 @@ import Footer from "../components/Footer.astro";
 <style is:global>
     .cursor {
         border: 1px solid var(--border-color);
-
         position: fixed;
         top: 0;
         left: 0;
@@ -156,7 +155,6 @@ import Footer from "../components/Footer.astro";
         border-radius: 10%;
         background-color: var(--background-component);
         backdrop-filter: blur(1px);
-        transition: border 0.3s linear;
     }
 
     .cursor_pointer {
@@ -169,75 +167,34 @@ import Footer from "../components/Footer.astro";
         left: 0;
         transform: translate(-50%, -50%);
         pointer-events: none;
-        transition: all 0.1s linear;
     }
 </style>
-
 <script>
     document.addEventListener('astro:page-load', () => {
-        function isDesktop() {
-            const userAgent = navigator.userAgent.toLowerCase();
-            const desktopKeywords = ["windows", "macintosh", "x11"];
+        const isDesktop = ["windows", "macintosh", "x11"].some(keyword => navigator.userAgent.toLowerCase().includes(keyword));
 
-            for (let keyword of desktopKeywords) {
-                if (userAgent.indexOf(keyword) !== -1) {
-                    return true;
-                }
-            }
+        if (isDesktop) {
+            let cursor = Object.assign(document.createElement("div"), {className: "cursor"});
+            let pointer = Object.assign(document.createElement("div"), {className: "cursor_pointer"});
+            document.body.append(cursor, pointer);
 
-            return false;
-        }
+            let mouseX = 0, mouseY = 0;
 
-        if (isDesktop()) {
-            const cursor = document.createElement("div");
-            const pointer = document.createElement("div");
-
-            cursor.classList.add("cursor");
-            pointer.classList.add("cursor_pointer");
-
-            document.body.appendChild(cursor);
-            document.body.appendChild(pointer);
-
-            let mouseX = 0;
-            let mouseY = 0;
-
-            if (cursor && pointer) {
-                const updateCursor = () => {
-                    const dx = mouseX - parseInt(cursor.style.left || "0");
-                    const dy = mouseY - parseInt(cursor.style.top || "0");
-
-                    const speed = 1;
-
-                    cursor.style.left = `${
-                        parseInt(cursor.style.left || "0") + dx * speed
-                    }px`;
-                    cursor.style.top = `${
-                        parseInt(cursor.style.top || "0") + dy * speed
-                    }px`;
-                    pointer.style.left = `${mouseX}px`;
-                    pointer.style.top = `${mouseY}px`;
-
-                    requestAnimationFrame(updateCursor);
-                };
-
-                document.addEventListener("mousemove", (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    const hoveredElement = document.elementFromPoint(mouseX, mouseY);
-
-                    if (
-                        hoveredElement &&
-                        window.getComputedStyle(hoveredElement).cursor === "pointer"
-                    ) {
-                        cursor.classList.add("hover");
-                    } else {
-                        cursor.classList.remove("hover");
-                    }
-                });
+            const updateCursor = () => {
+                cursor.style.left = `${mouseX}px`;
+                cursor.style.top = `${mouseY}px`;
+                pointer.style.left = `${mouseX}px`;
+                pointer.style.top = `${mouseY}px`;
 
                 requestAnimationFrame(updateCursor);
-            }
+            };
+
+            document.addEventListener("mousemove", (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            requestAnimationFrame(updateCursor);
         }
     });
-
 </script>
