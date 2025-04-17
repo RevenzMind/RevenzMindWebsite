@@ -1,0 +1,94 @@
+---
+---
+
+<div class="cursor"></div>
+<div class="cursor_pointer"></div>
+
+<style>
+    .cursor {
+        border: 1px solid var(--border-color);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        border-radius: 10%;
+        background-color: var(--background-component);
+        backdrop-filter: blur(1px);
+        z-index: 10000;
+        transition: width 0.2s, height 0.2s;
+    }
+
+    .cursor_pointer {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--accent-color);
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        transition: transform 0.1s;
+    }
+
+    :global(.cursor-hover) .cursor {
+        width: 25px;
+        height: 25px;
+    }
+
+    :global(.cursor-hover) .cursor_pointer {
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+</style>
+
+<script>
+    const initCursor = () => {
+        const isDesktop = ["windows", "macintosh", "x11"].some(keyword => 
+            navigator.userAgent.toLowerCase().includes(keyword)
+        );
+
+        if (!isDesktop) return;
+
+        const cursor = document.querySelector(".cursor");
+        const pointer = document.querySelector(".cursor_pointer");
+        if (!cursor || !pointer) return;
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let pointerX = 0, pointerY = 0;
+        const speed = 0.15;
+
+        const animate = () => {
+            // Smooth cursor movement
+            cursorX += (mouseX - cursorX) * speed;
+            cursorY += (mouseY - cursorY) * speed;
+            (cursor as HTMLElement).style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+
+            // Faster pointer movement
+            pointerX += (mouseX - pointerX) * 0.3;
+            pointerY += (mouseY - pointerY) * 0.3;
+            (cursor as HTMLElement).style.transform = `translate(${pointerX}px, ${pointerY}px)`;
+
+            requestAnimationFrame(animate);
+        };
+
+        document.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Add hover effect
+        document.querySelectorAll('a, button, [data-tooltip]').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        requestAnimationFrame(animate);
+    };
+
+    // Initialize on page load and after transitions
+    document.addEventListener('astro:page-load', initCursor);
+</script>

@@ -43,7 +43,10 @@ import { AstroFont } from 'astro-font';
 
 </head>
 <body>
+
+
 <Header/>
+    <video id="backgroundVideo" loop muted  autoplay class="vidbkg"  src="https://cdnn.rawen.cat/r/len.mp4"></video>
 
 <main>
     <slot/>
@@ -62,10 +65,24 @@ import { AstroFont } from 'astro-font';
         box-sizing: border-box;
     }
 
+
+    .vidbkg{
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+        background-size: cover;
+        filter: brightness(.11);
+    }
+
     :root {
 
         --background: #0c0c0c;
-        --navbar-background: rgba(13, 13, 13, .95);
+        --navbar-background: rgba(13, 13, 13, 0.445);
     
 
         --background-component: #0f0f0f63;
@@ -94,8 +111,10 @@ import { AstroFont } from 'astro-font';
     }
 
     body {
-
-        width: 85%;
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
 
     body, html {
@@ -106,7 +125,23 @@ import { AstroFont } from 'astro-font';
     main {
         margin-top: 90px;
         min-height: 72vh;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+    }
 
+    main > * {
+        grid-column: 1 / -1;
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding: 0 1rem;
+        }
+
+        main {
+            gap: 1rem;
+        }
     }
 
     hr {
@@ -170,6 +205,7 @@ import { AstroFont } from 'astro-font';
         border-radius: 10%;
         background-color: var(--background-component);
         backdrop-filter: blur(1px);
+        z-index: 10000;
     }
 
     .cursor_pointer {
@@ -184,7 +220,7 @@ import { AstroFont } from 'astro-font';
         pointer-events: none;
     }
 </style>
-<script>
+<script is:inline>
     document.addEventListener('astro:page-load', () => {
         const isDesktop = ["windows", "macintosh", "x11"].some(keyword => navigator.userAgent.toLowerCase().includes(keyword));
 

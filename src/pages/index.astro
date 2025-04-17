@@ -5,6 +5,8 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="RevenzMind ! Website">
+
+    
     <div class="landing">
         <div class="landing_container">
             <div class="landing_subText">
@@ -54,8 +56,7 @@ import Layout from "../layouts/Layout.astro";
                             stroke-width="1.5"
                             stroke-linecap="round"
                             stroke-linejoin="round"></path>
-                </svg
-                >
+                </svg>
             </div>
         </div>
     </div>
@@ -84,6 +85,38 @@ import Layout from "../layouts/Layout.astro";
 </style>
 
 <style>
+    .dialog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+    .dialog-content {
+        text-align: center;
+        color: white;
+    }
+
+    .dialog-content h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+    }
+
+    .dialog-content p {
+        font-size: 1.2rem;
+    }
+
+  
+
     .landing {
         height: 85vh;
         display: flex;
@@ -124,7 +157,6 @@ import Layout from "../layouts/Layout.astro";
         align-items: center;
         gap: 20px;
         height: 50vh;
-
         width: 90%;
     }
 
@@ -132,7 +164,6 @@ import Layout from "../layouts/Layout.astro";
         border-radius: 10px;
         height: 150px;
         width: 150px;
-
         display: flex;
         justify-content: center;
         overflow: hidden;
@@ -204,7 +235,10 @@ import Layout from "../layouts/Layout.astro";
         align-items: center;
         flex-wrap: wrap;
         padding: 20px 0;
-
         gap: 20px;
     }
 </style>
+
+<script is:inline>
+  
+</script>
