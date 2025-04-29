@@ -1,16 +1,42 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import WelcomeModal from "../components/WelcomeModal.astro";
+import Profile from "../components/landing/Profile.astro";
+import SpotifyPlayer from "../components/landing/SpotifyPlayer.astro";
+import SkillsDisplay from "../components/landing//SkillsDisplay.astro";
+import ProjectsDisplay from "../components/landing/ProjectsDisplay.astro";
+import { fetchDiscordActivity } from "../utils/SpotifyWrapper";
+import { Skills } from "../constants/get/skills";
+const rpcData = await fetchDiscordActivity();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="RawenCat - Star">
+    <WelcomeModal/>
+    <div class="h-full w-full flex flex-col place-content-center p-4 md:p-10 items-center gap-3">
+        <Profile />
+        <div class="w-full md:w-[70%] h-auto grid grid-cols-1 md:grid-cols-[35%_auto] gap-2">
+            <SpotifyPlayer />
+            <SkillsDisplay />
+        </div>
+        <ProjectsDisplay />
+    </div>
+
+    <video
+        id="VideoWelcome"
+        class="object-cover w-screen h-screen brightness-[0.06] fixed -z-10"
+        loop
+        src="https://cdnn.rawen.cat/r/len.mp4">
+    </video>
+</Layout>
+
+<script>
+    const VideoWelcome = document.getElementById("VideoWelcome");
+    VideoWelcome?.addEventListener("contextmenu", function (event) {
+        event.preventDefault();
+    });
+</script>
+
+<script lang="ts">
+	const { data } = useLanyard("1286544389073534976");
+	console.log(data);
+</script>

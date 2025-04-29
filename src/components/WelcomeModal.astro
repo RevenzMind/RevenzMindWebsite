@@ -1,0 +1,27 @@
+---
+---
+
+<div id="modalWelcome" class="fixed z-10 flex w-screen h-screen items-center justify-center bg-zinc-900 text-white flex-col gap-8">
+  <img src="/cat.png" class="w-50 h-50 object-cover rounded-xl">
+  <h1 class="text-3xl font-bold tracking-tight xl:text-4xl ">Welcome I'm RawenCat</h1>
+  <button id="ModalClose" class="px-18 py-3 border-2 cursor-pointer border-zinc-700 rounded-xl font-medium transition-all duration-300 hover:bg-white hover:text-black hover:border-white">
+    View
+  </button>
+</div>
+
+<script>
+const modalWelcome = document.getElementById("modalWelcome");
+const ModalClose = document.getElementById("ModalClose");
+const VideoWelcome = document.getElementById("VideoWelcome");
+
+ModalClose?.addEventListener("click", closeModal);
+
+function closeModal() {
+  modalWelcome?.classList.add("hidden");
+  (VideoWelcome as HTMLVideoElement)?.play();
+}
+
+window.addEventListener("load", () => {
+  modalWelcome?.classList.add("flex");
+});
+</script>

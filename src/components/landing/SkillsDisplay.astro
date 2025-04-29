@@ -1,0 +1,81 @@
+---
+import { Skills } from "../../constants/get/skills";
+---
+<div class="bg-[#18181b94] border items-center place-content-center border-zinc-900 rounded-lg min-h-[200px]">
+    <div class="flex flex-col h-full w-full justify-center bg-gradient-to-b from-transparent to-zinc-900/20">
+        <h1 class="text-xl md:text-xl font-bold text-zinc-100 text-center pt-8 tracking-tight">
+            Skills & Technologies
+        </h1>
+        <div class="flex-1 flex items-center justify-center">
+            <div class="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2 md:gap-3 p-4 md:p-6">
+                {
+                    Skills.map((skill) => (
+                        <div class="skill-wrapper relative group">
+                            <div class="relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-110">
+                                <div class="absolute inset-0  opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <img
+                                    src={skill.imageurl}
+                                    alt={skill.name}
+                                    data-tooltip={skill.name}
+                                    class="skill-icon w-12 object-cover rounded-xl shadow-lg shadow-zinc-900/20"
+                                />
+                            </div>
+                            <span class="tooltip">
+                                {skill.name}
+                            </span>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .skill-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .skill-icon:hover {
+        transform: scale(1.2);
+    }
+
+    .skill-wrapper {
+        position: relative;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        position: absolute;
+        background-color: #18181b;
+        color: #fff;
+        text-align: center;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        white-space: nowrap;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -40px;
+        opacity: 0;
+        transition: opacity 0.2s, visibility 0.2s;
+        border: 1px solid #27272a;
+        z-index: 10;
+    }
+
+    .skill-wrapper:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .tooltip::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #27272a transparent;
+    }
+</style>

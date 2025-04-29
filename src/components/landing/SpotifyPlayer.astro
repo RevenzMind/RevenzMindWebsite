@@ -1,0 +1,41 @@
+---
+import { fetchDiscordActivity } from "../../utils/SpotifyWrapper";
+const rpcData = await fetchDiscordActivity();
+---
+<div class="bg-[#18181b94] border items-center place-content-center border-zinc-900 rounded-lg min-h-[200px]">
+    <div class="flex justify-items-start items-center p-5">
+        {
+            rpcData?.song ? (
+                <div class="flex items-center gap-6 p-4 rounded-xl transition-all">
+                    <div class="md:w-[70px] lg:w-[100px] ">
+                        <img
+                            src={rpcData?.album_art_url}
+                            alt="Album Art"
+                            class="w-25 h-auto rounded-lg shadow-lg object-cover"
+                            loading="lazy"
+                        />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <h2 class="text-lg font-medium text-zinc-100">
+                            {rpcData?.song}
+                        </h2>
+                        <p class="text-sm text-zinc-400">
+                            {rpcData?.artist}
+                        </p>
+                    </div>
+                </div>
+            ) : (
+                <div class="flex items-center justify-center w-full h-full rounded-xl p-6">
+                    <div class="text-center">
+                        <h2 class="text-lg font-medium text-zinc-400">
+                            Not Playing
+                        </h2>
+                        <p class="text-sm text-zinc-500 mt-1">
+                            No music playing right now
+                        </p>
+                    </div>
+                </div>
+            )
+        }
+    </div>
+</div>
