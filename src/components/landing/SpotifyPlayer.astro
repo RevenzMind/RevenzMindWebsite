@@ -1,15 +1,31 @@
 ---
-import { fetchDiscordActivity } from "../../utils/SpotifyWrapper";
-const rpcData = await fetchDiscordActivity();
 ---
-<div class="bg-[#18181b94] border items-center place-content-center border-zinc-900 rounded-lg min-h-[200px]">
+<div class="bg-[#18181b94] border items-center place-content-center border-zinc-900 rounded-lg min-h-[200px]" id="spotify-player">
     <div class="flex justify-items-start items-center p-5">
-        {
-            rpcData?.song ? (
+        <div class="flex items-center justify-center w-full h-full rounded-xl p-6">
+            <div class="text-center">
+                <h2 class="text-lg font-medium text-zinc-400">
+                    Loading...
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function updatePlayer() {
+        const response = await fetch('/api/spotify');
+        const rpcData = await response.json();
+        const container = document.getElementById('spotify-player');
+        
+        if (!container) return;
+
+        const content = rpcData?.song ? `
+            <div class="flex justify-items-start items-center p-5">
                 <div class="flex items-center gap-6 p-4 rounded-xl transition-all">
-                    <div class="md:w-[70px] lg:w-[100px] ">
+                    <div class="md:w-[70px] lg:w-[100px]">
                         <img
-                            src={rpcData?.album_art_url}
+                            src="${rpcData.album_art_url}"
                             alt="Album Art"
                             class="w-25 h-auto rounded-lg shadow-lg object-cover"
                             loading="lazy"
@@ -17,14 +33,16 @@ const rpcData = await fetchDiscordActivity();
                     </div>
                     <div class="flex flex-col gap-1">
                         <h2 class="text-lg font-medium text-zinc-100">
-                            {rpcData?.song}
+                            ${rpcData.song}
                         </h2>
                         <p class="text-sm text-zinc-400">
-                            {rpcData?.artist}
+                            ${rpcData.artist}
                         </p>
                     </div>
                 </div>
-            ) : (
+            </div>
+        ` : `
+            <div class="flex justify-items-start items-center p-5">
                 <div class="flex items-center justify-center w-full h-full rounded-xl p-6">
                     <div class="text-center">
                         <h2 class="text-lg font-medium text-zinc-400">
@@ -35,7 +53,15 @@ const rpcData = await fetchDiscordActivity();
                         </p>
                     </div>
                 </div>
-            )
-        }
-    </div>
-</div>
+            </div>
+        `;
+
+        container.innerHTML = content;
+    }
+
+    // Initial update
+    updatePlayer();
+
+    // Update every 30 seconds
+    setInterval(updatePlayer, 30000);
+</script>
