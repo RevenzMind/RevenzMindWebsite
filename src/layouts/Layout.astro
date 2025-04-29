@@ -1,7 +1,6 @@
 ---
-import './src/styles/global.css'
+import '../styles/global.css'
 const {title} = Astro.props
-
 ---
 
 <html lang="en">
@@ -11,13 +10,11 @@ const {title} = Astro.props
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-
 	</head>
 	<body class="flex">
 		<slot/>
 	</body>
 </html>
-
 
 <style>
     
