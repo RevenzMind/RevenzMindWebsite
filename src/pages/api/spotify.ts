@@ -1,6 +1,7 @@
 import type { APIContext } from 'astro';
 import { fetchDiscordActivity } from '../../utils/SpotifyWrapper';
 
+export const prerender = false;
 
 import type { APIRoute } from 'astro';
 
