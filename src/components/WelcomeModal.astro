@@ -19,6 +19,7 @@ ModalClose?.addEventListener("click", closeModal);
 function closeModal() {
   modalWelcome?.classList.add("hidden");
   (VideoWelcome as HTMLVideoElement)?.play();
+  if (VideoWelcome) (VideoWelcome as HTMLVideoElement).volume = 0.3;
 }
 
 window.addEventListener("load", () => {
