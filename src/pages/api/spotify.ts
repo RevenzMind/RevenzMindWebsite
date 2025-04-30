@@ -12,11 +12,6 @@ export const  GET: APIRoute = async ({ params, request }) => {
             song: null,
             artist: null,
             album_art_url: null
-        }, {
-            headers: {
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Access-Control-Allow-Origin': '*'
-            }
         });
     }
 
@@ -24,11 +19,6 @@ export const  GET: APIRoute = async ({ params, request }) => {
         song: activity.song,
         artist: activity.artist,
         album_art_url: activity.album_art_url
-    }, {
-        headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Access-Control-Allow-Origin': '*'
-        }
     });
 
 }

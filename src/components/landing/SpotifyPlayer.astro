@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<script>
+<script is:raw>
     async function updatePlayer() {
         const response = await fetch('/api/spotify');
         const rpcData = await response.json();
