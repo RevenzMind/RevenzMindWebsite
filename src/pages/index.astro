@@ -7,6 +7,7 @@ import SkillsDisplay from "../components/landing//SkillsDisplay.astro";
 import ProjectsDisplay from "../components/landing/ProjectsDisplay.astro";
 import { fetchDiscordActivity } from "../utils/SpotifyWrapper";
 import { Skills } from "../constants/get/skills";
+import SocialsDisplay from "../components/landing/SocialsDIsplay.astro";
 const rpcData = await fetchDiscordActivity();
 ---
 
@@ -19,6 +20,7 @@ const rpcData = await fetchDiscordActivity();
             <SkillsDisplay />
         </div>
         <ProjectsDisplay />
+        <SocialsDisplay />
     </div>
 
     <video

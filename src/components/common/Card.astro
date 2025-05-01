@@ -1,0 +1,15 @@
+---
+interface Props {
+    class?: string;
+    id?: string;
+}
+
+const { class: className, id: ide } = Astro.props;
+---
+
+<div id={ide} class:list={[
+    "bg-[#18181b94] backdrop-blur-sm flex flex-col border items-center border-zinc-900 rounded-lg",
+    className 
+]}>
+    <slot />
+</div>

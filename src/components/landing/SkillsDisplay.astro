@@ -1,35 +1,45 @@
 ---
 import { Skills } from "../../constants/get/skills";
+import Card from "../common/Card.astro";
+
+// Sort skills alphabetically by name
+const sortedSkills = [...Skills].sort((a, b) => a.name.localeCompare(b.name));
 ---
-<div class="bg-[#18181b94] border items-center place-content-center border-zinc-900 rounded-lg min-h-[200px]">
-    <div class="flex flex-col h-full w-full justify-center bg-gradient-to-b from-transparent to-zinc-900/20">
-        <h1 class="text-xl md:text-xl font-bold text-zinc-100 text-center pt-8 tracking-tight">
-            Skills & Technologies
-        </h1>
-        <div class="flex-1 flex items-center justify-center">
-            <div class="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2 md:gap-3 p-4 md:p-6">
-                {
-                    Skills.map((skill) => (
-                        <div class="skill-wrapper relative group">
-                            <div class="relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-110">
-                                <div class="absolute inset-0  opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                <img
-                                    src={skill.imageurl}
-                                    alt={skill.name}
-                                    data-tooltip={skill.name}
-                                    class="skill-icon w-12 object-cover rounded-xl shadow-lg shadow-zinc-900/20"
-                                />
-                            </div>
-                            <span class="tooltip">
-                                {skill.name}
-                            </span>
+
+<Card class="max-h-[200px]">
+    <div class="flex mb-5 w-[100%] items-center gap-2 px-5 pt-4 pb-4 border-b border-zinc-800/50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L2 22"/>
+            <path d="M17 2l-5 5"/>
+            <path d="M22 7l-5 5"/>
+            <path d="M2 17l5-5"/>
+            <path d="M7 22l5-5"/>
+        </svg>
+        <h1 class="w-[100%] text-start text-sm font-medium text-zinc-400">Skills & Tech</h1>
+    </div>
+    <div class="w-full min-h-[115px] items-center">
+        <div class="flex flex-wrap gap-4 px-8">
+            {
+                sortedSkills.map((skill) => (
+                    <div class="skill-wrapper relative group">
+                        <div class="relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-110">
+                            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <img
+                                src={skill.imageurl}
+                                alt={skill.name}
+                                data-tooltip={skill.name}
+                                class="skill-icon w-[3.3rem] object-cover rounded-xl shadow-lg shadow-zinc-900/20"
+                            />
                         </div>
-                    ))
-                }
-            </div>
+                        <span class="tooltip">
+                            {skill.name}
+                        </span>
+                    </div>
+                ))
+            }
         </div>
     </div>
-</div>
+</Card>
 
 <style>
     .skill-icon {

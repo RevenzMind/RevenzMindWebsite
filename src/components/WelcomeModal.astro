@@ -1,28 +1,63 @@
 ---
 ---
 
-<div id="modalWelcome" class="fixed z-10 flex w-screen h-screen items-center justify-center bg-zinc-900 text-white flex-col gap-8">
-  <img src="/cat.png" class="w-50 h-50 object-cover rounded-xl">
-  <h1 class="text-3xl font-bold tracking-tight xl:text-4xl ">Welcome I'm RawenCat</h1>
-  <button id="ModalClose" class="px-18 py-3 border-2 cursor-pointer border-zinc-700 rounded-xl font-medium transition-all duration-300 hover:bg-white hover:text-black hover:border-white">
-    View
-  </button>
+<div id="modalWelcome" class="fixed z-10 flex w-screen h-screen items-center justify-center bg-zinc-900/95 text-white flex-col gap-8 opacity-0 transition-all duration-500">
+  <img src="/cat.png" class="w-50 h-50 object-cover rounded-xl transform hover:scale-105 transition-transform duration-300">
+  <h1 class="text-3xl font-bold tracking-tight xl:text-4xl bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">Welcome I'm RawenCat</h1>
+  
+  <div class="flex flex-col gap-4 items-center">
+    <h2 class="text-xl text-zinc-400">Choose your experience:</h2>
+    <div class="flex flex-wrap justify-center gap-4 max-w-2xl px-4">
+      <button id="ModalCloseNoVideo" class="group relative px-6 py-3 border-2 cursor-pointer border-zinc-700 rounded-xl font-medium transition-all duration-300 hover:bg-white hover:text-black hover:border-white overflow-hidden">
+        <span class="relative z-10">No Video</span>
+        <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+      </button>
+      <button id="ModalCloseWithVideo" class="group relative px-6 py-3 border-2 cursor-pointer border-zinc-700 rounded-xl font-medium transition-all duration-300 hover:bg-white hover:text-black hover:border-white overflow-hidden">
+        <span class="relative z-10">Play with Sound</span>
+        <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+      </button>
+      <button id="ModalCloseVideoMuted" class="group relative px-6 py-3 border-2 cursor-pointer border-zinc-700 rounded-xl font-medium transition-all duration-300 hover:bg-white hover:text-black hover:border-white overflow-hidden">
+        <span class="relative z-10">Play Muted</span>
+        <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+      </button>
+    </div>
+  </div>
 </div>
 
 <script>
 const modalWelcome = document.getElementById("modalWelcome");
-const ModalClose = document.getElementById("ModalClose");
+const ModalCloseNoVideo = document.getElementById("ModalCloseNoVideo");
+const ModalCloseWithVideo = document.getElementById("ModalCloseWithVideo");
+const ModalCloseVideoMuted = document.getElementById("ModalCloseVideoMuted");
 const VideoWelcome = document.getElementById("VideoWelcome");
 
-ModalClose?.addEventListener("click", closeModal);
+ModalCloseNoVideo?.addEventListener("click", () => closeModal(false));
+ModalCloseWithVideo?.addEventListener("click", () => closeModal(true, false));
+ModalCloseVideoMuted?.addEventListener("click", () => closeModal(true, true));
 
-function closeModal() {
-  modalWelcome?.classList.add("hidden");
-  (VideoWelcome as HTMLVideoElement)?.play();
-  if (VideoWelcome) (VideoWelcome as HTMLVideoElement).volume = 0.3;
+function closeModal(playVideo = true, muted = false) {
+  if (!modalWelcome) return;
+  
+  modalWelcome.style.opacity = "0";
+  
+  setTimeout(() => {
+    modalWelcome.classList.add("hidden");
+    if (playVideo && VideoWelcome) {
+      const video = VideoWelcome as HTMLVideoElement;
+      video.muted = muted;
+      video.volume = muted ? 0 : 0.3;
+      video.play();
+    }
+    else
+      VideoWelcome?.remove();
+    
+  }, 500);
 }
 
 window.addEventListener("load", () => {
-  modalWelcome?.classList.add("flex");
+  setTimeout(() => {
+    modalWelcome?.classList.add("flex");
+    modalWelcome?.style.setProperty("opacity", "1");
+  }, 100);
 });
 </script>

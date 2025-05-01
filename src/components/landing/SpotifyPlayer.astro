@@ -1,16 +1,24 @@
 ---
+import Card from "../common/Card.astro";
 ---
-<div class="bg-[#18181b94] border items-center place-content-center border-zinc-900 rounded-lg min-h-[200px]" id="spotify-player">
-    <div class="flex justify-items-start items-center p-5">
-        <div class="flex items-center justify-center w-full h-full rounded-xl p-6">
-            <div class="text-center">
-                <h2 class="text-lg font-medium text-zinc-400">
-                    Loading...
-                </h2>
+
+<Card class="flex justify-start flex-col items-center place-content-center max-h-[200px] hover:bg-[#18181b98] transition-all duration-300" id="spotify-player">
+    <div class="flex flex-col w-full">
+        <div class="flex items-center gap-2 px-5 pt-4 pb-4 border-b border-zinc-800/50">
+            <img src="/assets/SVGS/spotify.svg" alt="Spotify icon" class="w-4 h-4" />
+            <h1 class="text-sm font-medium text-zinc-400">Listening on Spotify</h1>
+        </div>
+        <div class="flex justify-items-start items-center p-5">
+            <div class="flex items-center justify-center w-full h-full rounded-xl">
+                <div class="text-center">
+                    <h2 class="text-lg font-medium text-zinc-400">
+                        Loading...
+                    </h2>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</Card>
 
 <script is:inline>
     async function updatePlayer() {
@@ -21,36 +29,48 @@
         if (!container) return;
 
         const content = rpcData?.song ? `
-            <div class="flex justify-items-start items-center p-5">
-                <div class="flex items-center gap-6 p-4 rounded-xl transition-all">
-                    <div class="md:w-[70px] lg:w-[100px]">
-                        <img
-                            src="${rpcData.album_art_url}"
-                            alt="Album Art"
-                            class="w-25 h-auto rounded-lg shadow-lg object-cover"
-                            loading="lazy"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <h2 class="text-lg font-medium text-zinc-100">
-                            ${rpcData.song}
-                        </h2>
-                        <p class="text-sm text-zinc-400">
-                            ${rpcData.artist}
-                        </p>
+            <div class="flex flex-col w-full">
+                <div class="flex items-center gap-2 px-5 pt-4 pb-4 border-b border-zinc-800/50">
+                    <img src="/assets/SVGS/spotify.svg" alt="Spotify icon" class="w-4 h-4" />
+                    <h1 class="text-sm font-medium text-zinc-400">Listening on Spotify</h1>
+                </div>
+                <div class="flex justify-items-start items-center p-5">
+                    <div class="flex items-center gap-6 rounded-xl transition-all">
+                        <div class="md:w-[70px] lg:w-[100px]">
+                            <img
+                                src="${rpcData.album_art_url}"
+                                alt="Album Art"
+                                class="w-25 h-auto rounded-lg shadow-lg object-cover hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <h2 class="text-lg font-medium text-zinc-100 hover:text-emerald-400 transition-colors duration-300">
+                                ${rpcData.song}
+                            </h2>
+                            <p class="text-sm text-zinc-400">
+                                ${rpcData.artist}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         ` : `
-            <div class="flex justify-items-start items-center p-5">
-                <div class="flex items-center justify-center w-full h-full rounded-xl p-6">
-                    <div class="text-center">
-                        <h2 class="text-lg font-medium text-zinc-400">
-                            Not Playing
-                        </h2>
-                        <p class="text-sm text-zinc-500 mt-1">
-                            No music playing right now
-                        </p>
+            <div class="flex flex-col w-full">
+                <div class="flex items-center gap-2 px-5 pt-4 pb-4 border-b border-zinc-800/50">
+                    <img src="/assets/SVGS/spotify.svg" alt="Spotify icon" class="w-4 h-4" />
+                    <h1 class="text-sm font-medium text-zinc-400">Listening on Spotify</h1>
+                </div>
+                <div class="flex min-h-[100%] items-center">
+                    <div class="flex items-center justify-center w-full h-full rounded-xl">
+                        <div class="text-center">
+                            <h2 class="text-lg font-medium text-zinc-400">
+                                Not Playing
+                            </h2>
+                            <p class="text-sm text-zinc-500 mt-1">
+                                No music playing right now
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,6 +82,6 @@
     // Initial update
     updatePlayer();
 
-    // Update every 30 seconds
-    setInterval(updatePlayer, 10000);
+    // Update every 10 seconds
+    setInterval(updatePlayer, 30000);
 </script>

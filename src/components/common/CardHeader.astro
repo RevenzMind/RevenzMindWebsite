@@ -1,0 +1,13 @@
+---
+interface Props {
+    title: string;
+    icon: string;
+}
+
+const { title, icon } = Astro.props;
+---
+
+<div class="flex mb-5 w-full items-center gap-2 px-5 pt-4 pb-4 border-b border-zinc-800/50">
+    <Fragment set:html={icon} />
+    <h1 class="w-full text-start text-sm font-medium text-zinc-400">{title}</h1>
+</div>

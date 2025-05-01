@@ -1,28 +1,43 @@
 ---
+import { Image } from 'astro:assets';
+import Card from "../common/Card.astro";
 ---
-<div class="bg-[#18181b94] border items-center place-content-center border-zinc-900 rounded-lg h-auto min-h-[250px] w-full md:w-[70%] grid grid-cols-1 md:grid-cols-[30%_auto] p-4 md:p-10 gap-4">
-    <div class="w-32 xl:w-50  md:w-40 mx-auto md:mx-auto rounded-2xl overflow-hidden ">
-        <img
-            class="w-auto h-auto object-cover"
-            src="https://japi.rest/discord/v1/user/1286544389073534976/avatar?size=4096"
-            alt=""
-        />
-    </div>
-    <div class="text-center md:text-left">
-        <h1 class="text-zinc-200 text-2xl">RawenCat</h1>
-        <p class="text-zinc-300 xl:text-lg md:text-sm">
-            Hello everyone! <span>I'm Revenz</span>, a <span>17 year old</span> 
-            self-taught programmer from <span>Mexico</span> who 
-            <span>loves coding and specializes in web development.</span> 
-            I have experience using various programming languages and tools to create 
-            <span>professional looking and user friendly websites</span>. 
-            My ultimate goal is to become a <span>successful programmer in the future.</span>
-        </p>
-    </div>
-</div>
 
-<style>
-    span {
-        color: rgb(119, 119, 119);
-    }
-</style>
+<div class="flex flex-col w-full md:w-[70%] gap-4">
+    <Card class="flex items-center flex-row justify-between gap-3 px-6 py-4">
+        <div class="flex gap-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-zinc-400">
+                <path d="M20.37 21.25C20.37 21.4489 20.291 21.6397 20.1503 21.7803C20.0097 21.921 19.8189 22 19.62 22H4.38C4.18109 22 3.99032 21.921 3.84967 21.7803C3.70902 21.6397 3.63 21.4489 3.63 21.25C3.63 17.15 8.13 13.97 12 13.97C15.87 13.97 20.37 17.15 20.37 21.25Z" fill="currentColor"/>
+                <path d="M17.1 7.11002C17.098 8.11827 16.7972 9.1033 16.2356 9.94067C15.674 10.778 14.8768 11.4302 13.9448 11.8147C13.0127 12.1991 11.9876 12.2987 10.9989 12.1008C10.0103 11.9029 9.10249 11.4164 8.39024 10.7027C7.67799 9.98908 7.19327 9.08031 6.99729 8.09128C6.80132 7.10225 6.90289 6.07735 7.28919 5.14603C7.67549 4.21471 8.32917 3.41878 9.16764 2.85883C10.0061 2.29887 10.9918 2 12 2C13.3535 2.00265 14.6507 2.54219 15.6069 3.50021C16.563 4.45824 17.1 5.75649 17.1 7.11002Z" fill="currentColor"/>
+            </svg>
+            <h1 class="text-base font-medium text-zinc-400">Hi I'm RawenCat</h1>
+        </div>
+        <div>
+            <h1 class="text-zinc-400">Made With 💖</h1>
+        </div>
+    </Card>
+
+    <Card class="h-auto min-h-[250px] w-full grid grid-cols-1 md:grid-cols-[30%_auto] p-6 md:p-10 gap-6 transition-all duration-300 hover:border-zinc-700/50">
+        <div class="w-32 xl:w-48 md:w-40 mx-auto md:mx-0 rounded-2xl overflow-hidden ring-2 ring-zinc-800/50 transition-all duration-300 hover:ring-zinc-700/50">
+            <Image
+                src="https://japi.rest/discord/v1/user/1286544389073534976/avatar?size=4096"
+                alt="RawenCat's Profile Picture"
+                loading="lazy"
+                width={192}
+                height={192}
+                class="w-full h-full object-cover"
+            />
+        </div>
+        <div class="text-center md:text-left space-y-3 flex flex-col justify-center">
+            <h1 class="text-zinc-200 text-2xl font-semibold">RawenCat</h1>
+            <p class="text-zinc-300 xl:text-base md:text-base leading-relaxed">
+                Hello everyone! <span class="text-zinc-500 font-medium">I'm Revenz</span>, a <span class="text-zinc-500 font-medium">17 year old</span> 
+                self-taught programmer from <span class="text-zinc-500 font-medium">Mexico</span> who 
+                <span class="text-zinc-500 font-medium">loves coding and specializes in web development.</span> 
+                I have experience using various programming languages and tools to create 
+                <span class="text-zinc-500 font-medium">professional looking and user friendly websites</span>. 
+                My ultimate goal is to become a <span class="text-zinc-500 font-medium">successful programmer in the future.</span>
+            </p>
+        </div>
+    </Card>
+</div>
