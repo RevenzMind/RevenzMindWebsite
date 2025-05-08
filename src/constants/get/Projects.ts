@@ -13,7 +13,13 @@ export const projects = [
         deployedLink: "",
         codeLink: "https://github.com/RevenzMind/Roblox-Autoclicker",
     },
-
+ {
+        emoji: "🎮",
+        name: "RawenSwitcher",
+        description: "RiotClient Account Switcher C#",
+        deployedLink: "",
+        codeLink: "https://github.com/RevenzMind/RawenSwitch",
+    },
 ];
 
 
