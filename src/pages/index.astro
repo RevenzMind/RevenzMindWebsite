@@ -26,15 +26,27 @@ const rpcData = await fetchDiscordActivity();
     <video
         id="VideoWelcome"
         class="object-cover w-screen h-screen brightness-[0.06] fixed -z-10"
-        loop 
-        src="assets/len.mp4">
+        loop>
     </video>
 </Layout>
 
 <script>
-    const VideoWelcome = document.getElementById("VideoWelcome");
-    VideoWelcome?.addEventListener("contextmenu", function (event) {
-        event.preventDefault();
-    });
+    const videos = [
+        "assets/len.mp4",
+        "assets/len2.mp4",
+        "assets/len4.mp4",
+        "assets/len5.mp4",
+    ];
+
+    const VideoWelcome = document.getElementById("VideoWelcome") as HTMLVideoElement | null;
+
+    if (VideoWelcome) {
+        const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+        VideoWelcome.src = randomVideo;
+        VideoWelcome.play();
+        VideoWelcome.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+        });
+    }
 </script>
 
