@@ -1,5 +1,5 @@
 export const SocialLinks = [
-    {title: "Github", url: "https://github.com/RevenzMind", svg: "/assets/SVGS/github.svg"},
+    {title: "Github", url: "https://github.com/RawenCat", svg: "/assets/SVGS/github.svg"},
     {title: "Discord", url: "https://discord.com/users/1286544389073534976", svg: "/assets/SVGS/discord.svg"},
     {
         title: "Spotify",
